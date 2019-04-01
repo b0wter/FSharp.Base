@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="List.fs" />
-    <Compile Include="Program.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FsUnit" Version="3.4.0" />
     <PackageReference Include="FsUnit.xUnit" Version="3.4.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
@@ -22,6 +17,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\base\Base.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Helpers.fs" />
+    <Compile Include="Base.fs" />
+    <Compile Include="Collections\List.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
 
 </Project>
