@@ -4,6 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>b0wter.FSharp</AssemblyName>
     <RootNamespace>b0wter.FSharp</RootNamespace>
+    <NuspecFile>b0wter.fsharp.nuspec</NuspecFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>lib\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>lib\Release\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
