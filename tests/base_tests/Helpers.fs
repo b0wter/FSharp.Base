@@ -6,3 +6,9 @@ module Helpers =
         expected: 'b
     }
     
+    type TestData<'TLeft, 'TRight, 'TExpected> = {
+        left: 'TLeft list
+        right: 'TRight list
+        expected: 'TExpected
+    }
+    

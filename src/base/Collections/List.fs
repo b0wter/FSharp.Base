@@ -36,4 +36,29 @@ module List =
         items 
         |> List.map (fun item -> (item, item |> transformation ))
         |> List.filter (fun (_, mappedItem) -> mappedItem |> predicate)
-        |> List.map fst        
+        |> List.map fst
+        
+    /// <summary>
+    /// Returns a list of elements that appear in both lists.
+    /// </summary>
+    let intersect (xs: list< 'a >) (ys: list< 'a >) =
+        let hashes = System.Collections.Generic.HashSet< 'a >(ys, HashIdentity.Structural)
+        xs |> List.filter (fun x -> hashes.Contains x)
+        
+    /// <summary>
+    /// Returns a list of elements that appear only in the second list.
+    /// </summary>
+    /// <remarks>
+    /// The second list is used for easier currying.
+    /// </remarks>
+    let differenceTo (xs: list<'a>) (ys: list<'a>) =
+        let hashes = System.Collections.Generic.HashSet< 'a >(xs, HashIdentity.Structural)
+        ys |> List.filter (fun y -> not (hashes.Contains y))
+        
+    /// <summary>
+    /// Returns a list of elements that appear only in one of the two lists.
+    /// </summary>
+    let symmetricDifference (xs: list<'a>) (ys: list<'a>) =
+        let deltaX = xs |> differenceTo ys
+        let deltaY = ys |> differenceTo xs
+        deltaY @ deltaX

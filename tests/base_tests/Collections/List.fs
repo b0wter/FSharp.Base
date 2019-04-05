@@ -106,3 +106,72 @@ module MappedFilter =
         
         let result = source |> (List.mapFilter mapping predicate)
         result |> should be Empty
+       
+module Intersect =
+
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    open b0wter.FSharp.Collections
+    
+    type TestCase = BaseTests.Helpers.TestData<string, string, string>
+    
+    let testCases () : obj array seq =
+        seq {
+            yield [| ["a"; "b"]; ["b"; "c"]; ["b"] |]
+            yield [| ["a"; "b"]; ["a"; "c"]; ["a"] |]
+            yield [| ([]: string list); ["a"; "c"]; ([]: string list) |]
+            yield [| ["a"; "b"]; ["a"; "b"]; ["a"; "b"] |]
+            yield [| ["a"; "b"]; ["c"; "d"]; ([]: string list) |]
+        }
+    
+    [<Theory>]
+    [<MemberData("testCases")>]
+    let ``Given two lists returns all elements appearing in both lists.`` (left: string list) (right: string list) (expected: string list) =
+        left |> List.intersect right |> should equal expected
+    
+module DifferenceTo =
+
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    open b0wter.FSharp.Collections
+    
+    type TestCase = BaseTests.Helpers.TestData<string, string, string>
+    
+    let testCases () : obj array seq =
+        seq {
+            yield [| ["a"; "b"]; ["b"; "c"]; ["a"] |]
+            yield [| ["a"; "b"]; ["a"; "c"]; ["b"] |]
+            yield [| ([]: string list); ["a"; "c"]; ([]: string list) |]
+            yield [| ["a"; "b"]; ["a"; "b"]; ([]: string list) |]
+            yield [| ["a"; "b"]; ["c"; "d"]; ["a"; "b"] |]
+        }
+    
+    [<Theory>]
+    [<MemberData("testCases")>]
+    let ``Given two lists returns all elements appearing only in the first list.`` (left: string list) (right: string list) (expected: string list) =
+        left |> List.differenceTo right |> should equal expected
+    
+module Difference =
+
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    open b0wter.FSharp.Collections
+    
+    type TestCase = BaseTests.Helpers.TestData<string, string, string>
+    
+    let testCases () : obj array seq =
+        seq {
+            yield [| ["a"; "b"]; ["b"; "c"]; ["a"; "c"] |]
+            yield [| ["a"; "b"]; ["a"; "c"]; ["b"; "c"] |]
+            yield [| ([]: string list); ["a"; "c"]; ["a"; "c"] |]
+            yield [| ["a"; "b"]; ["a"; "b"]; ([]: string list) |]
+            yield [| ["a"; "b"]; ["c"; "d"]; ["a"; "b"; "c"; "d"] |]
+        }
+    
+    [<Theory>]
+    [<MemberData("testCases")>]
+    let ``Given two lists returns all elements appearing only in one list.`` (left: string list) (right: string list) (expected: string list) =
+        left |> List.symmetricDifference right |> should equal expected
