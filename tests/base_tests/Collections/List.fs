@@ -153,7 +153,7 @@ module DifferenceTo =
     let ``Given two lists returns all elements appearing only in the first list.`` (left: string list) (right: string list) (expected: string list) =
         left |> List.differenceTo right |> should equal expected
     
-module Difference =
+module SymmetricalDifference =
 
     open FsUnit
     open FsUnit.Xunit
@@ -175,3 +175,25 @@ module Difference =
     [<MemberData("testCases")>]
     let ``Given two lists returns all elements appearing only in one list.`` (left: string list) (right: string list) (expected: string list) =
         left |> List.symmetricDifference right |> should equal expected
+
+module ExceptBy =
+    
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    open b0wter.FSharp.Collections
+    
+    type TestCase = BaseTests.Helpers.TestData<string, string, string>
+    
+    let testCases () : obj array seq =
+        seq {
+            yield [| ["a"; "b"; "c"]; (fun (s: string) -> s = "c"); ["a"; "b"] |]
+            yield [| ["a"; "b"; "c"; "c"]; (fun (s: string) -> s = "c"); ["a"; "b"] |]
+            yield [| ["a"; "b"]; (fun (s: string) -> s = "<not in list>"); ["a"; "b"] |]
+            yield [| ([]: string list); (fun (s: string) -> s = "<not in list>"); ([]: string list) |]
+        }
+    
+    [<Theory>]
+    [<MemberData("testCases")>]
+    let ``Given a list and a predicate returns all elements not matching the predicate.`` (items: string list) (predicate: string -> bool) (expected: string list) =
+        items |> List.exceptBy predicate |> should equal expected

@@ -62,3 +62,14 @@ module List =
         let deltaX = xs |> differenceTo ys
         let deltaY = ys |> differenceTo xs
         deltaY @ deltaX
+        
+    /// <summary>
+    /// Returns a list without the elements specified by the given predicate.
+    /// </summary>
+    let exceptBy (predicate: 'a -> bool) (xs: list<'a>)=
+        let toRemove = xs |> List.filter predicate
+        if toRemove |> List.isEmpty then
+            xs
+        else
+            xs |> List.except toRemove
+            
