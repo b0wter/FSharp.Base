@@ -21,3 +21,12 @@ steps:
 
 - script: dotnet pack
   displayName: 'Create a new nuget package.'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    feedsToUse: 'select'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'Nuget_Connection_EK'
+    versioningScheme: 'off'
