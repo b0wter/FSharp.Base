@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
         <id>b0wter.FSharp</id>
-        <version>0.1.7</version>
+        <version>0.1.9</version>
         <authors>b0wter (b0wter@gmx.de)</authors>
         <owners>evil-klabautermann@gmx.de</owners>
         <projectUrl>https://github.com/b0wter/FSharp.Base</projectUrl>
@@ -19,5 +19,6 @@
         <file src="Base.fsproj" target="src"/>
         <file src="*.fs" target="src"/>
         <file src="Collections/*.fs" target="src/Collections"/>
+	<file src="lib/Release/netstandard2.0/b0wter.FSharp.dll" target="lib/netstandard2.0"/>
     </files>
 </package>
