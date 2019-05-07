@@ -30,7 +30,7 @@ steps:
   inputs:
     command: 'push'
     feedsToUse: 'select'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.BinariesDirectory)/nuget/*.nupkg;!$(Build.BinariesDirectory)/nuget/*.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'Nuget_Connection_EK'
     versioningScheme: 'off'
