@@ -22,8 +22,9 @@ steps:
 - script: dotnet pack
   displayName: 'Create a new nuget package.'
 
-- script: echo $(Build.ArtifactStagingDirectory)
-  
+- script: cp $(Agent.BuildDirectory)/**/*.nupkg $(Build.ArtifactStagingDirectory)
+  displayName: 'Copy results to artifacts folder.'
+
 
 - task: NuGetCommand@2
   inputs:
