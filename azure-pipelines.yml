@@ -19,10 +19,10 @@ steps:
 - script: dotnet test
   displayName: 'Run the unit tests.'
 
-- script: dotnet pack
+- script: dotnet pack --output $(Build.BinariesDirectory)/nuget
   displayName: 'Create a new nuget package.'
 
-- script: $(Build.BinariesDirectory)
+- script: echo $(Build.BinariesDirectory)
   displayName: 'debug thingy.'
 
 
