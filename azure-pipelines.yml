@@ -22,6 +22,9 @@ steps:
 - script: dotnet pack
   displayName: 'Create a new nuget package.'
 
+- script: echo $(Build.ArtifactStagingDirectory)
+  
+
 - task: NuGetCommand@2
   inputs:
     command: 'push'
