@@ -67,6 +67,6 @@ module Seq =
     /// <summary>
     /// Returns a seq without the elements specified by the given predicate.
     /// </summary>
-    let exceptBy (xs: 'a seq) (predicate: 'a -> bool) : 'a seq =
+    let exceptBy (predicate: 'a -> bool) (xs: 'a seq) : 'a seq =
         runAsList (List.exceptBy predicate) xs
        

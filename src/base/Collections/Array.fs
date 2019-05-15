@@ -67,5 +67,5 @@ module Array =
     /// <summary>
     /// Returns a list without the elements specified by the given predicate.
     /// </summary>
-    let exceptBy (xs: 'a[]) (predicate: 'a -> bool) : 'a[] =
+    let exceptBy (predicate: 'a -> bool) (xs: 'a[]) : 'a[] =
         runAsList (List.exceptBy predicate) xs
