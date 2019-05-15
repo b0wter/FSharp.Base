@@ -15,3 +15,22 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+- script: dotnet test
+  displayName: 'Run the unit tests.'
+
+- script: dotnet pack --output $(Build.BinariesDirectory)/nuget
+  displayName: 'Create a new nuget package.'
+
+- script: echo $(Build.BinariesDirectory)
+  displayName: 'debug thingy.'
+
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    feedsToUse: 'select'
+    packagesToPush: '$(Build.BinariesDirectory)/nuget/*.nupkg;!$(Build.BinariesDirectory)/nuget/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'Nuget_Connection_EK'
+    versioningScheme: 'off'
