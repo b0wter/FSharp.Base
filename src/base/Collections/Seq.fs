@@ -69,4 +69,11 @@ module Seq =
     /// </summary>
     let exceptBy (predicate: 'a -> bool) (xs: 'a seq) : 'a seq =
         runAsList (List.exceptBy predicate) xs
+
+    /// <summary>
+    /// Returns the seq split into to equal parts.
+    /// If the seq has an uneven number of elements the left tuple element will be one element larger.
+    /// </summary>
+    let half (xs: 'a seq) : ('a seq * 'a seq) =
+        xs |> List.ofSeq |> List.half |> toSeq
        

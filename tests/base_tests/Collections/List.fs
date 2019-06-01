@@ -197,3 +197,52 @@ module ExceptBy =
     [<MemberData("testCases")>]
     let ``Given a list and a predicate returns all elements not matching the predicate.`` (items: string list) (predicate: string -> bool) (expected: string list) =
         items |> List.exceptBy predicate |> should equal expected
+
+module Half =
+    
+    open FsUnit
+    open FsUnit.Xunit
+    open FsUnitTyped
+    open Xunit
+    open b0wter.FSharp.Collections
+    
+    [<Fact>]
+    let ``Given a list with even length, returns the first half on the left side and the second half on the right`` () =
+        let input = [ 1; 2; 3; 4; 5; 6 ]
+        let left = [ 1; 2; 3 ]
+        let right = [ 4; 5; 6 ]
+        
+        let (resultL, resultR) = input |> List.half
+        
+        resultL |> should equal left
+        resultR |> should equal right
+        
+    [<Fact>]
+    let ``Given a list with odd length, left side contains one more element than the right side`` () =
+        let input = [ 0; 1; 2; 3; 4; 5; 6; ]
+        let left = [ 0; 1; 2; 3 ]
+        let right = [ 4; 5; 6 ]
+        
+        let (resultL, resultR) = input |> List.half
+        
+        resultL |> should equal left
+        resultR |> should equal right
+
+    [<Fact>]
+    let ``Given a list with one element, returns a single element on the left side and an empty list on the right side`` () =
+        let input = [ 1 ]
+        let left = [ 1 ]
+        
+        let (resultL, resultR) = input |> List.half
+        
+        resultL |> should equal left
+        resultR |> should be Empty
+    
+    [<Fact>]
+    let ``Given an empty list, returns an empty list for the left and right side`` () =
+        let input = []
+        
+        let (resultL, resultR) = input |> List.half
+        
+        resultL |> should be Empty
+        resultR |> should be Empty

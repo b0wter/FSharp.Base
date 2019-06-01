@@ -1,5 +1,7 @@
 ﻿namespace b0wter.FSharp.Collections
 module List =
+    open b0wter.FSharp
+    open Base
 
     /// <summary>
     /// Splits a list by using a predicate. The left list contains all elements up to the first element that matches the predicate.
@@ -66,10 +68,18 @@ module List =
     /// <summary>
     /// Returns a list without the elements specified by the given predicate.
     /// </summary>
-    let exceptBy (predicate: 'a -> bool) (xs: list<'a>)=
+    let exceptBy (predicate: 'a -> bool) (xs: list<'a>) =
         let toRemove = xs |> List.filter predicate
         if toRemove |> List.isEmpty then
             xs
         else
             xs |> List.except toRemove
-            
+           
+    /// <summary>
+    /// Returns the list split into to equal parts.
+    /// If the list has an uneven number of elements the left tuple element will be one element larger.
+    /// </summary>
+    let half (xs: list<'a>) =
+        let length = xs.Length
+        let left = if length |> isEven then length / 2 else length / 2 + 1
+        (xs |> List.take left, xs |> List.skip left)

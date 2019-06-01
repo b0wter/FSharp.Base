@@ -69,3 +69,10 @@ module Array =
     /// </summary>
     let exceptBy (predicate: 'a -> bool) (xs: 'a[]) : 'a[] =
         runAsList (List.exceptBy predicate) xs
+
+    /// <summary>
+    /// Returns the array split into to equal parts.
+    /// If the array has an uneven number of elements the left tuple element will be one element larger.
+    /// </summary>
+    let half (xs: 'a[]) : ('a[] * 'a[]) =
+        xs |> List.ofArray |> List.half |> toArray

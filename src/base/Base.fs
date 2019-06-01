@@ -33,3 +33,14 @@ module Base =
                                 | Error e -> Some e)
         |> Seq.choose id 
 
+    /// <summary>
+    /// Returns wether the given integer is an even number.
+    /// </summary>
+    let isEven i : bool =
+        i % 2 = 0
+        
+    /// <summary>
+    /// Returns wether the given integer is an odd number.
+    /// </summary>
+    let isOdd i : bool =
+        (isEven i) |> not
