@@ -75,6 +75,33 @@ module List =
         else
             xs |> List.except toRemove
            
+    ///<sumary>
+    /// Splits a list into n parts of equal length. If the number of elements is not divisable by n the lists will
+    /// be filled starting from the first list. E.g. [1; 2; 3] split into two yields: [1; 2], [ 3 ].
+    /// Returns empty lists if n is larger than the length of the list of items. E.g. [1; 2] divided into three
+    /// yields: [ 1 ]; [ 2 ]; [ ].
+    /// </summary> 
+    let inParts (n: int) (xs: 'a list) : 'a list list =
+        let partLenghts = System.Math.Ceiling((xs.Length |> float) / (n |> float)) |> int
+        
+        let take (elements: 'a list) (amount: int) : ('a list * 'a list) =
+            let rec take (elements: 'a list) (acc: 'a list) (amount: int) : ('a list * 'a list) =
+                match elements with
+                | [] -> (acc, [])
+                | head :: tail when amount > 0 -> take (tail) (head :: acc) (amount - 1)
+                | _ when amount = 0 -> (acc, elements)
+                | _ -> failwith "Reached invalid state while in `inParts`."
+            let (left, right) = take elements [] amount
+            (left |> List.rev, right)
+            
+        [1..n] |> List.fold (fun (rest: 'a list, acc: 'a list list) _ ->
+                                    let (taken, tail) = take rest partLenghts
+                                    (tail, taken :: acc)
+                            )
+                            (xs, ([]: 'a list list))
+               |> snd
+               |> List.rev
+        
     /// <summary>
     /// Returns the list split into to equal parts.
     /// If the list has an uneven number of elements the left tuple element will be one element larger.
@@ -83,3 +110,17 @@ module List =
         let length = xs.Length
         let left = if length |> isEven then length / 2 else length / 2 + 1
         (xs |> List.take left, xs |> List.skip left)
+
+    /// <summary>
+    /// Casts list of objects to any other type. Return objects if cast is possible, so new list can be shorter (or empty).
+    /// </summary>
+    /// <remarks>
+    /// Copied from: http://www.fssnip.net/oD/title/Cast-object-list
+    /// </remarks>
+    let rec cast<'a> (myList: obj list) =          
+        match myList with
+        | head::tail -> 
+            match head with 
+            | :? 'a as a -> a::(cast tail) 
+            | _ -> cast tail
+        | [] -> [] 

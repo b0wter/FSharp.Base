@@ -70,6 +70,15 @@ module Seq =
     let exceptBy (predicate: 'a -> bool) (xs: 'a seq) : 'a seq =
         runAsList (List.exceptBy predicate) xs
 
+    ///<sumary>
+    /// Splits a list into n parts of equal length. If the number of elements is not divisable by n the lists will
+    /// be filled starting from the first list. E.g. [1; 2; 3] split into two yields: [1; 2], [ 3 ].
+    /// Returns empty lists if n is larger than the length of the list of items. E.g. [1; 2] divided into three
+    /// yields: [ 1 ]; [ 2 ]; [ ].
+    /// </summary> 
+    let inParts (n: int) (xs: 'a seq) : 'a seq seq =
+        xs |> List.ofSeq |> List.inParts n |> List.map (Seq.ofList) |> Seq.ofList
+        
     /// <summary>
     /// Returns the seq split into to equal parts.
     /// If the seq has an uneven number of elements the left tuple element will be one element larger.

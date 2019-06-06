@@ -70,6 +70,15 @@ module Array =
     let exceptBy (predicate: 'a -> bool) (xs: 'a[]) : 'a[] =
         runAsList (List.exceptBy predicate) xs
 
+    ///<sumary>
+    /// Splits a list into n parts of equal length. If the number of elements is not divisable by n the lists will
+    /// be filled starting from the first list. E.g. [1; 2; 3] split into two yields: [1; 2], [ 3 ].
+    /// Returns empty lists if n is larger than the length of the list of items. E.g. [1; 2] divided into three
+    /// yields: [ 1 ]; [ 2 ]; [ ].
+    /// </summary> 
+    let inParts (n: int) (xs: 'a []) : 'a [] [] =
+        xs |> List.ofArray |> List.inParts n |> List.map (Array.ofList) |> Array.ofList
+        
     /// <summary>
     /// Returns the array split into to equal parts.
     /// If the array has an uneven number of elements the left tuple element will be one element larger.

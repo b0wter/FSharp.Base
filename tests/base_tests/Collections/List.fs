@@ -198,6 +198,53 @@ module ExceptBy =
     let ``Given a list and a predicate returns all elements not matching the predicate.`` (items: string list) (predicate: string -> bool) (expected: string list) =
         items |> List.exceptBy predicate |> should equal expected
 
+module InParts =
+    
+    open FsUnit
+    open FsUnit.Xunit
+    open FsUnitTyped
+    open Xunit
+    open b0wter.FSharp.Collections
+    
+    [<Fact>]
+    let ``Given a list with 6 elements, split into two parts, returns 2 lists containing 3 items.`` () =
+        let items = [1; 2; 3; 4; 5; 6]
+        let parts = 2
+        
+        let lists = items |> List.inParts parts
+        
+        lists |> should equal [ [1; 2; 3]; [4; 5; 6] ]
+        
+    [<Fact>]
+    let ``Given a list with 6 elements, split into three parts, returns 3 lists containing 2 items.`` () =
+        let items = [1; 2; 3; 4; 5; 6]
+        let parts = 3
+        
+        let lists = items |> List.inParts parts
+        
+        lists |> should equal [ [1; 2]; [3; 4]; [5; 6] ]
+        
+    [<Fact>]
+    let ``Given a list with 6 elements, split into 8 parts, returns 6 lists containing a single element and two empty lists.`` () =
+        let items = [1; 2; 3; 4; 5; 6]
+        let parts = 8
+        
+        let lists = items |> List.inParts parts
+        
+        lists |> should haveLength 8
+        lists |> List.take (items.Length) |> List.iter (fun l -> l |> should haveLength 1)
+        lists |> List.skip (items.Length) |> List.iter (fun l -> l |> should be Empty)
+        
+    [<Fact>]
+    let ``Given an empty list, returns an empty list.`` () =
+        let items = []
+        let parts = 8
+        
+        let lists = items |> List.inParts parts
+        
+        lists |> should haveLength 8
+        lists |> List.iter (fun l -> l |> should be Empty)
+
 module Half =
     
     open FsUnit
