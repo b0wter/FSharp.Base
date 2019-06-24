@@ -124,3 +124,10 @@ module List =
             | :? 'a as a -> a::(cast tail) 
             | _ -> cast tail
         | [] -> [] 
+        
+    /// <summary>
+    /// Replaces the 'old' object with the 'updated' object. Note that the 'updated' element will be
+    /// at the same position as the 'old' object.
+    /// </summary>
+    let replace (old: 'a) (updated: 'a) (items: 'a list) =
+        items |> List.map (fun i -> if i = old then updated else i)

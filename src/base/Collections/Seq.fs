@@ -86,3 +86,10 @@ module Seq =
     let half (xs: 'a seq) : ('a seq * 'a seq) =
         xs |> List.ofSeq |> List.half |> toSeq
        
+    /// <summary>
+    /// Replaces the 'old' object with the 'updated' object. Note that the 'updated' element will be
+    /// at the same position as the 'old' object.
+    /// </summary>
+    let replace (old: 'a) (updated: 'a) (items: 'a seq) =
+        items |> Seq.map (fun i -> if i = old then updated else i)
+

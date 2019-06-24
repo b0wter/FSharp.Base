@@ -85,3 +85,11 @@ module Array =
     /// </summary>
     let half (xs: 'a[]) : ('a[] * 'a[]) =
         xs |> List.ofArray |> List.half |> toArray
+        
+    /// <summary>
+    /// Replaces the 'old' object with the 'updated' object. Note that the 'updated' element will be
+    /// at the same position as the 'old' object.
+    /// </summary>
+    let replace (old: 'a) (updated: 'a) (items: 'a[]) =
+        items |> Array.map (fun i -> if i = old then updated else i)
+
