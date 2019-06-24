@@ -293,3 +293,28 @@ module Half =
         
         resultL |> should be Empty
         resultR |> should be Empty
+        
+module Replace =
+    
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    open b0wter.FSharp.Collections
+    
+    let items = [ 1; 2; 3; 4; 5; 6 ]
+    
+    [<Fact>]
+    let ``Given a list containing the element to replace, returns a list without that element but with the new element.`` () =
+        let result = items |> List.replace 1 7
+        result |> should equal [ 7; 2; 3; 4; 5; 6 ]
+        
+    [<Fact>]
+    let ``Given a list not containing the element to replace, returns the original list.`` () =
+        let result = items |> List.replace 99 11
+        result |> should equal [ 1; 2; 3; 4; 5; 6 ]
+        
+    [<Fact>]
+    let ``Given an empty list, returns an empty list.`` () =
+        let result = [] |> List.replace 1 7
+        result |> should be Empty
+
