@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
         <id>b0wter.FSharp</id>
-        <version>1.4.1</version>
+        <version>1.5.0</version>
         <authors>b0wter (b0wter@gmx.de)</authors>
         <owners>evil-klabautermann@gmx.de</owners>
         <projectUrl>https://github.com/b0wter/FSharp.Base</projectUrl>
         <license type="expression">LGPL-2.1-only</license>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <releaseNotes>Fixed order of arguments for Option.getOrElse</releaseNotes>
+        <releaseNotes>Collections.Replace now keeps the order of the elements.</releaseNotes>
         <description>Provides helper methods for basic tasks.</description>
         <tags>utility</tags>
         <dependencies>
