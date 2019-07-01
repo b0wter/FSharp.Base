@@ -17,11 +17,16 @@
 
   <ItemGroup>
     <Compile Include="Base.fs" />
+    <Compile Include="Lens.fs" />
     <Compile Include="Option.fs" />
     <Compile Include="Patterns.fs" />
     <Compile Include="Collections\List.fs" />
     <Compile Include="Collections\Array.fs" />
     <Compile Include="Collections\Seq.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Quotations.Evaluator" Version="1.1.3" />
   </ItemGroup>
 
 </Project>
