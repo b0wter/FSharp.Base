@@ -23,6 +23,7 @@
     <Compile Include="Helpers.fs" />
     <Compile Include="Base.fs" />
     <Compile Include="Collections\List.fs" />
+    <Compile Include="Collections\Array.fs" />
     <Compile Include="Option.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

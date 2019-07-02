@@ -93,3 +93,13 @@ module Array =
     let replace (old: 'a) (updated: 'a) (items: 'a[]) =
         items |> Array.map (fun i -> if i = old then updated else i)
 
+    /// <summary>
+    /// Removes a given item from an array.
+    /// Does nothing if the item does not exist within the array.
+    /// </summary>
+    let remove (item: 'a) (items: 'a []) =
+        match items |> Array.tryFindIndex ((=) item) with
+        | Some 0 -> items.[1..]
+        | Some i -> Array.append items.[..i-1] items.[i+1..]
+        | None -> items
+        

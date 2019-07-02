@@ -93,3 +93,9 @@ module Seq =
     let replace (old: 'a) (updated: 'a) (items: 'a seq) =
         items |> Seq.map (fun i -> if i = old then updated else i)
 
+    /// <summary>
+    /// Removes a given item from a seq.
+    /// Does nothing if the item does not exist within the seq.
+    /// </summary>
+    let remove (item: 'a) (items: 'a seq) =
+        runAsList (List.remove item) items

@@ -318,3 +318,26 @@ module Replace =
         let result = [] |> List.replace 1 7
         result |> should be Empty
 
+module Remove =
+    
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    open b0wter.FSharp.Collections
+    
+    let items = [ 1; 2; 3; 4; 5; 6 ]
+    
+    [<Fact>]
+    let ``Given a list containing the item, returns the list without the item.`` () =
+        let result = items |> List.remove 3
+        result |> should equal [ 1; 2; 4; 5; 6 ]
+        
+    [<Fact>]
+    let ``Given a list not containing the item, returns the same list.`` () =
+        let result = items |> List.remove 8
+        result |> should equal items
+
+    [<Fact>]
+    let ``Given an empty list, returns an empty list.`` () =
+        let result = [] |> List.remove 3
+        result |> should be Empty
