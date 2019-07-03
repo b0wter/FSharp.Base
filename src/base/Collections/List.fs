@@ -132,14 +132,22 @@ module List =
     let replace (old: 'a) (updated: 'a) (items: 'a list) =
         items |> List.map (fun i -> if i = old then updated else i)
 
+
+    /// <summary>
+    /// Removes an item from a list using a predicate.
+    /// Does nothing if the item does not exist within the list.
+    /// </summary>
+    let removeBy (predicate: 'a -> bool) (items: 'a list) =
+        let rec run (acc: 'a list) (rest: 'a list) =
+            match rest with
+            | head :: tail when head |> predicate -> (acc |> List.rev) @ tail
+            | head :: tail -> run (head :: acc) tail
+            | [ ] -> items
+        run [] items
+        
     /// <summary>
     /// Removes a given item from a list.
     /// Does nothing if the item does not exist within the list.
     /// </summary>
-    let remove (item: 'a) (items: 'a list) =
-        let rec run (acc: 'a list) (rest: 'a list) =
-            match rest with
-            | head :: tail when head = item -> (acc |> List.rev) @ tail
-            | head :: tail -> run (head :: acc) tail
-            | [ ] -> items
-        run [] items           
+    let remove (item: 'a) =
+        removeBy ((=) item)

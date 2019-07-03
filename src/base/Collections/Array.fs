@@ -94,12 +94,18 @@ module Array =
         items |> Array.map (fun i -> if i = old then updated else i)
 
     /// <summary>
-    /// Removes a given item from an array.
+    /// Removes an item from an array using a predicate.
     /// Does nothing if the item does not exist within the array.
     /// </summary>
-    let remove (item: 'a) (items: 'a []) =
-        match items |> Array.tryFindIndex ((=) item) with
+    let removeBy (predicate: 'a -> bool) (items: 'a []) =
+        match items |> Array.tryFindIndex predicate with
         | Some 0 -> items.[1..]
         | Some i -> Array.append items.[..i-1] items.[i+1..]
         | None -> items
         
+    /// <summary>
+    /// Removes a given item from an array.
+    /// Does nothing if the item does not exist within the array.
+    /// </summary>
+    let remove (item: 'a) =
+        removeBy ((=) item)

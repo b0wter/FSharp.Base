@@ -94,6 +94,13 @@ module Seq =
         items |> Seq.map (fun i -> if i = old then updated else i)
 
     /// <summary>
+    /// Removes an item from a seq using a predicate.
+    /// Does nothing if the item does not exist within the seq.
+    /// </summary>
+    let removeBy (predicate: 'a -> bool) (items: 'a seq) =
+        runAsList (List.removeBy predicate) items
+        
+    /// <summary>
     /// Removes a given item from a seq.
     /// Does nothing if the item does not exist within the seq.
     /// </summary>
