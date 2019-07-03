@@ -11,13 +11,6 @@ module Option =
         | _ -> ``else``
         
     /// <summary>
-    /// If toTest is some retuns toTest, else ``else``.
-    /// 'T option -> 'T option -> 'T option
-    /// </summary>
-    let orElse ``else`` toTest =
-        if Option.isSome toTest then toTest else ``else``
-
-    /// <summary>
     /// Compares two options.
     /// Only returns true of both are Some and are equal.
     /// </summary>
