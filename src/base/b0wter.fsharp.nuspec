@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
         <id>b0wter.FSharp</id>
-        <version>1.9.0</version>
+        <version>1.10.0</version>
         <authors>b0wter (b0wter@gmx.de)</authors>
         <owners>evil-klabautermann@gmx.de</owners>
         <projectUrl>https://github.com/b0wter/FSharp.Base</projectUrl>
         <license type="expression">LGPL-2.1-only</license>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <releaseNotes>Added a compare method for options.</releaseNotes>
+        <releaseNotes>Added Option.orElse. Added operators for Option.orElse and Option.getOrElse</releaseNotes>
         <description>Provides helper methods for basic tasks.</description>
         <tags>utility</tags>
         <dependencies>

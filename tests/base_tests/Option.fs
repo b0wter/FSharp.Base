@@ -18,6 +18,40 @@ module getOrElse =
         let result = item |> b0wter.FSharp.Option.getOrElse 99
         result |> should equal 1
 
+module orElse =
+    
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    
+    [<Fact>]
+    let ``Given two Somes returns the last.`` () =
+        let some1 = Some 1
+        let some2 = Some 2
+        
+        some1 |> Option.orElse some2 |> should equal (Some 1)
+        
+    [<Fact>]
+    let ``Given a Some and a None returns Some.`` () =
+        let some1 = Some 1
+        let none = None
+        
+        some1 |> Option.orElse none |> should equal (Some 1)
+    
+    [<Fact>]
+    let ``Given a None and a Some returns Some.`` () =
+        let some1 = Some 1
+        let none = None
+        
+        none |> Option.orElse some1 |> should equal (Some 1)
+        
+    [<Fact>]
+    let ``Given a None and a None returns None.`` () =
+        let none1 = None
+        let none2 = None
+        
+        none1 |> Option.orElse none2 |> should equal None
+
 module compare =
     
     open FsUnit

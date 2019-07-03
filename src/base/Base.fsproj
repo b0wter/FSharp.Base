@@ -20,6 +20,7 @@
     <Compile Include="Lens.fs" />
     <Compile Include="Option.fs" />
     <Compile Include="Patterns.fs" />
+    <Compile Include="Operators.fs" />
     <Compile Include="Collections\List.fs" />
     <Compile Include="Collections\Array.fs" />
     <Compile Include="Collections\Seq.fs" />

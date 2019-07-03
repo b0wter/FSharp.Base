@@ -5,10 +5,17 @@ module Option =
     /// <summary>
     /// Gets the value from an option if it's Some. Otherwise returns p.
     /// </summary>
-    let getOrElse p o =
-        match o with
+    let getOrElse ``else`` toTest =
+        match toTest with
         | Some x -> x
-        | _ -> p
+        | _ -> ``else``
+        
+    /// <summary>
+    /// If toTest is some retuns toTest, else ``else``.
+    /// 'T option -> 'T option -> 'T option
+    /// </summary>
+    let orElse ``else`` toTest =
+        if Option.isSome toTest then toTest else ``else``
 
     /// <summary>
     /// Compares two options.
