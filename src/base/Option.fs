@@ -18,3 +18,12 @@ module Option =
         match (a, b) with
         | Some a, Some b -> a = b
         | _ -> false
+        
+    /// <summary>
+    /// Compares the option value with th given value.
+    /// Always returns false if the option is None.
+    /// </summary>
+    let compareIfSome (a: 'a) (o: 'a option) : bool =
+        match o with
+        | Some value -> a = value
+        | None -> false

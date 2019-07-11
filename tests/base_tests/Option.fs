@@ -55,3 +55,22 @@ module compare =
         let b = None
         (a |> Option.compare b) |> should be False
     
+module compareIfSome =
+    
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    open b0wter.FSharp
+    
+    [<Fact>]
+    let ``Given a Some and a matching value, returns true.`` () =
+        (Some "a") |> Option.compareIfSome "a" |> should be True
+        
+    [<Fact>]
+    let ``Given a Some and a non-matching value, returns false.`` () =
+        (Some "a") |> Option.compareIfSome "b" |> should be False
+        
+    [<Fact>]
+    let ``Given a None and a value, returns false.`` () =
+        None |> Option.compareIfSome "a" |> should be False
+        
