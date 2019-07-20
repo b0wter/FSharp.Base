@@ -8,7 +8,8 @@
         <projectUrl>https://github.com/b0wter/FSharp.Base</projectUrl>
         <license type="expression">LGPL-2.1-only</license>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-	<releaseNotes>Added Option.compare ('a option -> 'a option -> bool) and Option.compareIfSome ('a -> 'a option -> bool).</releaseNotes>
+	<releaseNotes>Added wrappers for Int.Parse, Double.Parse and Guid.Parse to make them
+return options instead of throwing exceptions.</releaseNotes>
         <description>Provides helper methods for basic tasks.</description>
         <tags>utility</tags>
         <dependencies>
