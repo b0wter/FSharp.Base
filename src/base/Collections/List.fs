@@ -68,6 +68,9 @@ module List =
     /// <summary>
     /// Returns a list without the elements specified by the given predicate.
     /// </summary>
+    /// <remarks>
+    /// The difference to `List.removeBy` is that this method can remove multiple items.
+    /// </remarks>
     let exceptBy (predicate: 'a -> bool) (xs: list<'a>) =
         let toRemove = xs |> List.filter predicate
         if toRemove |> List.isEmpty then
@@ -130,11 +133,19 @@ module List =
     /// at the same position as the 'old' object.
     /// </summary>
     let replace (old: 'a) (updated: 'a) (items: 'a list) =
-        items |> List.map (fun i -> if i = old then updated else i)
+        let replaceIndex (old: 'a) (updated: 'a) (items: 'a list) =
+            if items.Length >= 1 && items.Head = old then updated :: items else
+                match items |> List.tryFindIndex ((=) old)  with
+                | Some i -> (items |> List.take (i - 1)) @ (updated :: (items |> List.skip i))
+                | None -> items
+        let replaceMap (old: 'a) (updated: 'a) (items: 'a list) =
+            items |> List.map (fun i -> if i = old then updated else i)
+        let replacer = if items.Length > 250 then replaceIndex else replaceMap
+        replacer old updated items
 
 
     /// <summary>
-    /// Removes an item from a list using a predicate.
+    /// Removes the first item matching the predicate from a list.
     /// Does nothing if the item does not exist within the list.
     /// </summary>
     let removeBy (predicate: 'a -> bool) (items: 'a list) =
