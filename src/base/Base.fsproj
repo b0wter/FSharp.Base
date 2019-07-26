@@ -1,20 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <AssemblyName>b0wter.FSharp</AssemblyName>
     <RootNamespace>b0wter.FSharp</RootNamespace>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <NuspecFile>b0wter.fsharp.nuspec</NuspecFile>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>lib\Debug\</OutputPath>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>lib\Release\</OutputPath>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="Base.fs" />
     <Compile Include="Lens.fs" />
@@ -26,10 +21,9 @@
     <Compile Include="Collections/Seq.fs" />
     <Compile Include="Parsers.fs" />
     <Compile Include="Result.fs" />
+    <Compile Include="Validation/ValidationResult.fs" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="FSharp.Quotations.Evaluator" Version="1.1.3" />
   </ItemGroup>
-
 </Project>

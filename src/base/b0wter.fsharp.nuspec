@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
         <id>b0wter.FSharp</id>
-        <version>2.1.0</version>
+        <version>2.2.0</version>
         <authors>b0wter (b0wter@gmx.de)</authors>
         <owners>evil-klabautermann@gmx.de</owners>
         <projectUrl>https://github.com/b0wter/FSharp.Base</projectUrl>
         <license type="expression">LGPL-2.1-only</license>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-	<releaseNotes>Added a mapBoth/bindBoth for Result-types.</releaseNotes>
+	<releaseNotes>Added two new ValidationResults.</releaseNotes>
         <description>Provides helper methods for basic tasks.</description>
         <tags>utility</tags>
         <dependencies>
