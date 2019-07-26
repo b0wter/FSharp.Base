@@ -25,6 +25,7 @@
     <Compile Include="Collections/Array.fs" />
     <Compile Include="Collections/Seq.fs" />
     <Compile Include="Parsers.fs" />
+    <Compile Include="Result.fs" />
   </ItemGroup>
 
   <ItemGroup>
