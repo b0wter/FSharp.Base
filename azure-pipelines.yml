@@ -55,6 +55,7 @@ steps:
     targetType: 'inline'
     script: |
       echo $GIT_TAG
+      tree
 
 - task: DotNetCoreCLI@2
   displayName: 'Pack release binaries.'
