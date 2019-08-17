@@ -3,6 +3,7 @@
     <AssemblyName>b0wter.FSharp</AssemblyName>
     <RootNamespace>b0wter.FSharp</RootNamespace>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <NuspecFile>b0wter.fsharp.nuspec</NuspecFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>lib\Debug\</OutputPath>
@@ -16,6 +17,7 @@
     <Compile Include="Option.fs" />
     <Compile Include="Patterns.fs" />
     <Compile Include="Operators.fs" />
+    <Compile Include="Async.fs" />
     <Compile Include="Collections/List.fs" />
     <Compile Include="Collections/Array.fs" />
     <Compile Include="Collections/Seq.fs" />

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+set -e
+NUGET_KEY=$(head -1 nuget-org-key)
+
 echo "Deleting obj and bin folders."
-rm -rf bin obj lib 		>>create_nuget.log 2>&1
+rm -rf bin obj lib 		>> create_nuget.log 2>&1
 set -e
 echo "Cleaning project."
 dotnet clean 			>> create_nuget.log 2>&1
@@ -12,3 +15,5 @@ echo "Running tests."
 dotnet test 			>> create_nuget.log 2>&1
 echo "Packing release."
 dotnet pack -c "Release" 	>> create_nuget.log 2>&1
+echo "Pushing to nuget.org"
+dotnet nuget push lib/Release/b0wter.FSharp.2.3.0.nupkg -k $NUGET_KEY -s https://api.nuget.org/v3/index.json | tee create_nuget.log
