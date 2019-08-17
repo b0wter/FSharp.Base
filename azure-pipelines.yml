@@ -49,6 +49,13 @@ steps:
     command: 'test'
     projects: 'src/base/Base.fsproj'
 
+- task: Bash@3
+  displayName: 'Echo GIT_TAG.'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo $GIT_TAG
+
 - task: DotNetCoreCLI@2
   displayName: 'Pack release binaries.'
   inputs:
