@@ -13,24 +13,48 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet test
-  displayName: 'Run the unit tests.'
+- task: DotNetCoreCLI@2
+  displayName: 'Clean solution.'
+  inputs:
+    command: 'custom'
+    projects: 'src/base/Base.fsproj'
+    custom: 'clean'
 
-- script: dotnet pack --output $(Build.BinariesDirectory)/nuget
-  displayName: 'Create a new nuget package.'
+- task: DotNetCoreCLI@2
+  displayName: 'Restore dependencies.'
+  inputs:
+    command: 'restore'
+    projects: 'src/base/Base.fsproj'
+    feedsToUse: 'select'
 
-- script: echo $(Build.BinariesDirectory)
-  displayName: 'debug thingy.'
+- task: DotNetCoreCLI@2
+  displayName: 'Build solution.'
+  inputs:
+    command: 'build'
+    projects: 'src/base/Base.fsproj'
+    arguments: '-c "Release"'
 
+- task: DotNetCoreCLI@2
+  displayName: 'Run unit tests.'
+  inputs:
+    command: 'test'
+    projects: 'src/base/Base.fsproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack release binaries.'
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(BuildConfiguration)'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'PACKAGE_VERSION'
 
 - task: NuGetCommand@2
+  displayName: 'Push to nuget.'
   inputs:
     command: 'push'
     feedsToUse: 'select'
-    packagesToPush: '$(Build.BinariesDirectory)/nuget/*.nupkg;!$(Build.BinariesDirectory)/nuget/*.symbols.nupkg'
+    packagesToPush: 'src/base/lib/Release/*.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'Nuget_Connection_EK'
     versioningScheme: 'off'
