@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- refs/tags/*
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -13,6 +14,13 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+- task: Bash@3
+  displayName: 'Retrieve latest git tag.'
+  inputs:
+    targetType: 'inline'
+    script: |
+      env GIT_TAG=$(git describe --tags)
 
 - task: DotNetCoreCLI@2
   displayName: 'Clean solution.'
