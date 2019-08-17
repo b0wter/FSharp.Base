@@ -55,7 +55,7 @@ steps:
     command: 'pack'
     packagesToPack: '$(BuildConfiguration)'
     versioningScheme: 'byEnvVar'
-    versionEnvVar: 'PACKAGE_VERSION'
+    versionEnvVar: 'GIT_TAG'
 
 - task: NuGetCommand@2
   displayName: 'Push to nuget.'
