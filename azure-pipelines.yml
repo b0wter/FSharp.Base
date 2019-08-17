@@ -15,15 +15,19 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+  workingDirectory: 'src/base'
 
 - script: dotnet test
   displayName: 'Run the unit tests.'
+  workingDirectory: 'src/base'
 
 - script: dotnet pack --output $(Build.BinariesDirectory)/nuget
   displayName: 'Create a new nuget package.'
+  workingDirectory: 'src/base'
 
 - script: echo $(Build.BinariesDirectory)
   displayName: 'debug thingy.'
+  workingDirectory: 'src/base'
 
 
 - task: NuGetCommand@2
