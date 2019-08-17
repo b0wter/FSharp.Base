@@ -15,29 +15,34 @@ variables:
 steps:
 
 - task: DotNetCoreCLI@2
+  displayName: 'Clean solution.'
   inputs:
     command: 'custom'
     projects: 'src/base/Base.fsproj'
     custom: 'clean'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Restore dependencies.'
   inputs:
     command: 'restore'
-    projects: 'store'
+    projects: 'src/base/Base.fsproj'
     feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build solution.'
   inputs:
     command: 'build'
     projects: 'src/base/Base.fsproj'
     arguments: '-c "Release"'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Run unit tests.'
   inputs:
     command: 'test'
     projects: 'src/base/Base.fsproj'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Pack release binaries.'
   inputs:
     command: 'pack'
     packagesToPack: '$(BuildConfiguration)'
@@ -45,6 +50,7 @@ steps:
     versionEnvVar: 'PACKAGE_VERSION'
 
 - task: NuGetCommand@2
+  displayName: 'Push to nuget.'
   inputs:
     command: 'push'
     feedsToUse: 'select'
