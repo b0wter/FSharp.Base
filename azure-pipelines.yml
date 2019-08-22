@@ -15,6 +15,13 @@ variables:
 
 steps:
 
+-task: Bash@3
+ displayName: 'Install dependencies'
+ inputs:
+   tragetType: 'inline'
+   script: |
+     sudo apt-get install -y tree
+
 - task: Bash@3
   displayName: 'Retrieve latest git tag.'
   inputs:
