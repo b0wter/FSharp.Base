@@ -1,6 +1,23 @@
 #!/usr/bin/env bash
+rm b0wter.fsharp.nuspec
 set -e
-NUGET_KEY=$(head -1 nuget-org-key)
+
+if [ -z "$NUGET_KEY" ]
+then
+	echo "\$NUGET_KEY is empty"
+	echo "Trying to source 'nuget-org-key'."
+	NUGET_KEY=$(head -1 nuget-org-key)
+	echo "Sourced nuget key."
+else
+      echo "\$NUGET_KEY is set, no need to do anything"
+fi
+
+GIT_TAG=$(git describe --tags)
+GIT_MESSAGE=$(git log -1 --pretty=%B)
+echo "Latest tag: $GIT_TAG; Latest commit: $GIT_MESSAGE"
+echo "Creating temporary nuspec file from template."
+sed "s/%VERSION%/$GIT_TAG/g" b0wter.fsharp.nuspec.template > b0wter.fsharp.nuspec
+sed -i "s/%RELEASE_NOTES%/$GIT_MESSAGE/g" b0wter.fsharp.nuspec
 
 echo "Deleting obj and bin folders."
 rm -rf bin obj lib 		>> create_nuget.log 2>&1
@@ -12,8 +29,10 @@ dotnet restore 			>> create_nuget.log 2>&1
 echo "Building release."
 dotnet build -c "Release" 	>> create_nuget.log 2>&1
 echo "Running tests."
-dotnet test 			>> create_nuget.log 2>&1
+cd ../..
+dotnet test 		
+cd -
 echo "Packing release."
-dotnet pack -c "Release" 	>> create_nuget.log 2>&1
+dotnet pack -c "Release" 	
 echo "Pushing to nuget.org"
-dotnet nuget push lib/Release/b0wter.FSharp.2.3.0.nupkg -k $NUGET_KEY -s https://api.nuget.org/v3/index.json | tee create_nuget.log
+dotnet nuget push lib/Release/b0wter.FSharp.*.nupkg -k $NUGET_KEY -s https://api.nuget.org/v3/index.json | tee create_nuget.log
