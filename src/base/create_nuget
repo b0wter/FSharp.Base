@@ -2,16 +2,16 @@
 rm b0wter.fsharp.nuspec
 set -e
 
-echo $NUGET_KEY
+echo $NUGET_ORG_KEY
 
-if [ -z "$NUGET_KEY" ]
+if [ -z "$NUGET_ORG_KEY" ]
 then
-	echo "\$NUGET_KEY is empty"
+	echo "\$NUGET_ORG_KEY is empty"
 	echo "Trying to source 'nuget-org-key'."
-	NUGET_KEY=$(head -1 nuget-org-key)
+	NUGET_ORG_KEY=$(head -1 nuget-org-key)
 	echo "Sourced nuget key."
 else
-	echo "\$NUGET_KEY is set, no need to do anything"
+	echo "\$NUGET_ORG_KEY is set, no need to do anything"
 fi
 
 GIT_TAG=$(git describe --tags --abbrev=0)
@@ -37,4 +37,4 @@ cd -
 echo "Packing release."
 dotnet pack -c "Release" 	
 echo "Pushing to nuget.org"
-dotnet nuget push lib/Release/b0wter.FSharp.*.nupkg -k $NUGET_KEY -s https://api.nuget.org/v3/index.json | tee create_nuget.log
+dotnet nuget push lib/Release/b0wter.FSharp.*.nupkg -k $NUGET_ORG_KEY -s https://api.nuget.org/v3/index.json | tee create_nuget.log
