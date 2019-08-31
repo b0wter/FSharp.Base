@@ -11,7 +11,7 @@ pool:
 
 steps:
 - task: Bash@3
-  displayName: 'Retrieve latest git tag.'
+  displayName: 'Run the build script from the repository.'
   env:
     NUGET_ORG_KEY: $(NUGET_KEY)
   inputs:
