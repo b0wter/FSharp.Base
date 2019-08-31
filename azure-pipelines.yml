@@ -19,5 +19,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      echo $NUGET_KEY
       cd src/base
       ./create_nuget
