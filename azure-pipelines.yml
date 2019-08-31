@@ -17,6 +17,5 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      echo "key: $NUGET_ORG_KEY"
       cd src/base
       ./create_nuget
