@@ -9,16 +9,14 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  - group: nuget_deployment
-
 steps:
-
 - task: Bash@3
   displayName: 'Retrieve latest git tag.'
+  env:
+    NUGET_ORG_KEY: $(NUGET_KEY)
   inputs:
     targetType: 'inline'
     script: |
-      echo $NUGET_KEY
+      echo $NUGET_ORG_KEY
       cd src/base
       ./create_nuget
