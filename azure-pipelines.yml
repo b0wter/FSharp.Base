@@ -1,6 +1,7 @@
 trigger:
   tags:
-    include: *
+    include:
+      - *
   pr: none
   paths:
     exclude:
