@@ -5,8 +5,8 @@ trigger:
       - '*'
   paths:
     exclude:
-      - *.md
-      - *.MD
+      - '*.md'
+      - '*.MD'
 
 pool:
   vmImage: 'ubuntu-latest'
