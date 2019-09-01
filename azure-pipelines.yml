@@ -1,6 +1,6 @@
 trigger:
   tags:
-    - refs/tags/*
+    - *
   pr: none
   paths:
     exclude:
