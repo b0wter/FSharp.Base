@@ -1,5 +1,11 @@
 trigger:
-- refs/tags/*
+  tags:
+    - refs/tags/*
+  pr: none
+  paths:
+    exclude:
+      - *.md
+      - *.MD
 
 pool:
   vmImage: 'ubuntu-latest'
