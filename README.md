@@ -1,6 +1,4 @@
-[![Build Status](https://b0wter.visualstudio.com/b0wter.FSharp/_apis/build/status/b0wter.FSharp.Base?branchName=master)](https://b0wter.visualstudio.com/b0wter.FSharp/_build/latest?definitionId=26&branchName=master)
-
-[![Build Status](https://b0wter.visualstudio.com/b0wter.FSharp/_apis/build/status/b0wter.FSharp.Base?branchName=master&jobName=Job)](https://b0wter.visualstudio.com/b0wter.FSharp/_build/latest?definitionId=26&branchName=master)
+[![Build Status](https://b0wter.visualstudio.com/b0wter.FSharp/_apis/build/status/Run%20unit%20tests?branchName=master)](https://b0wter.visualstudio.com/b0wter.FSharp/_build/latest?definitionId=27&branchName=master)
 
 # FSharp.Base
 This projects contains code that I found myself writing more often than I wanted to. It contains a lot of extension methods for collections (lists, arrays, seq) and option types.
