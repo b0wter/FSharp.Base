@@ -18,6 +18,7 @@
     <Compile Include="Patterns.fs" />
     <Compile Include="Operators.fs" />
     <Compile Include="Async.fs" />
+    <Compile Include="Streams.fs" />
     <Compile Include="Collections/List.fs" />
     <Compile Include="Collections/Array.fs" />
     <Compile Include="Collections/Seq.fs" />
