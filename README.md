@@ -12,11 +12,12 @@ open b0wter.FSharp.Collections
 ```
 You are then able to call the new methods like any other `list` method:
 ```
-list first, second = myItems |> List.half
+let first, second = myItems |> List.half
 ```
 Using the `option` extension methods works the same:
 ```
 open b0wter.FSharp
+let result = myStringOption |> Option.getOrElse "defaultValue"
 ```
 
 ## Custom Operators
