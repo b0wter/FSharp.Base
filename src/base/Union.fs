@@ -13,10 +13,10 @@ module Union =
     /// I have not written this code myself, it's from
     /// https://stackoverflow.com/a/11798829
     /// </remarks>
-    let rec isUnionCase = function
-        | Lambda (_, expr) | Let (_, _, expr) -> isUnionCase expr
+    let rec isCase = function
+        | Lambda (_, expr) | Let (_, _, expr) -> isCase expr
         | NewTuple exprs -> 
-            let iucs = List.map isUnionCase exprs
+            let iucs = List.map isCase exprs
             fun value -> List.exists ((|>) value) iucs
         | NewUnionCase (uci, _) ->
             let utr = FSharpValue.PreComputeUnionTagReader uci.DeclaringType
