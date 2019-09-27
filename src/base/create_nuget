@@ -2,8 +2,6 @@
 rm b0wter.fsharp.nuspec
 set -e
 
-echo $NUGET_ORG_KEY
-
 if [ -z "$NUGET_ORG_KEY" ]
 then
 	echo "\$NUGET_ORG_KEY is empty"
