@@ -20,8 +20,6 @@ echo "Creating temporary nuspec file from template."
 sed "s/%VERSION%/$GIT_TAG/g" b0wter.fsharp.nuspec.template > b0wter.fsharp.nuspec
 sed -i 's/%RELEASE_NOTES%/'"$GIT_MESSAGE"'/g' b0wter.fsharp.nuspec
 
-exit
-
 echo "Deleting obj and bin folders."
 rm -rf bin obj lib 		>> create_nuget.log 2>&1
 set -e
