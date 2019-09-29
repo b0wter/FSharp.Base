@@ -1,6 +1,6 @@
 namespace BaseTests.Result
 
-module isUnionCase =
+module isCase =
 
     open FsUnit
     open FsUnit.Xunit
@@ -9,20 +9,34 @@ module isUnionCase =
 
     type TestUnion
         = First
-        | Second
-        | Third
+        | Second of int
+        | Third of string
 
     [<Fact>]
-    let ``Given a union type of matching case returns true`` () =
-        let value = First
-        value |> Union.isCase<@ First @> |> should be True
+    let ``Given a (parameterless) union type of matching case returns true`` () =
+        First |> Union.isCase<@ First @> |> should be True
 
     [<Fact>]
-    let ``Given a union type of non-matching case returns f`` () =
-        let value = Second
-        value |> Union.isCase<@ First @> |> should be False
+    let ``Given a (parameterized) union type of matching case returns true`` () =
+        Second 10 |> Union.isCase<@ Second @> |> should be True
 
     [<Fact>]
-    let ``Given a non-union type throws an exception`` () =
+    let ``Given a (parameterized) union type (without parameter) of matching case returns true`` () =
+        (fun () -> Second |> Union.isCase<@ Second @> |> ignore) |> should (throwWithMessage "Value (not expression) is not a union case.") typeof<System.Exception>
+
+    [<Fact>]
+    let ``Given a union type of non-matching case fails the assertion`` () =
+        Second 5 |> Union.isCase<@ First @> |> should be False
+
+    [<Fact>]
+    let ``Given a non-union type as expression throws an exception`` () =
         let value = Third
-        (fun () -> value |> Union.isCase<@ int @> |> ignore) |> should (throwWithMessage "Expression is no union case.") typeof<System.Exception>
+        (fun () -> value |> Union.isCase<@ int @> |> ignore) |> should (throwWithMessage "Expression (not value) is not a union case.") typeof<System.Exception>
+
+    [<Fact>]
+    let ``Given a non-union type as value argument fails the assertion`` () =
+        (fun () -> 5 |> Union.isCase<@ Second 5 @> |> ignore) |> should (throwWithMessage "Value (not expression) is not a union case.") typeof<System.Exception>
+
+    [<Fact>]
+    let ``Given a tuple of union types containing the searched case returns true`` () =
+        Second 5 |> Union.isCase<@ First, Second @> |> should be True
