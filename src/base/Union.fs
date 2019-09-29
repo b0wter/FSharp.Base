@@ -5,6 +5,25 @@ module Union =
     open Microsoft.FSharp.Quotations.Patterns
     open Microsoft.FSharp.Reflection
 
+    /// <summary>
+    /// Takes an expression and returns the name of the union cases that are the result of this expression.
+    /// Note, not all ways an expression may result in an union case are convered in this function
+    /// </summary>
+    /// <remarks>
+    /// This method rarely has its uses. It is contained in this library to make it easy to use it
+    /// in an Xunit CustomMatcher (together with `Union.isCase`), or any other unit testing framework 
+    /// as it gives a nicely readable string for the "Expect".
+    /// </remarks>
+    let rec caseName = function
+        | Lambda (_, expr) | Let (_, _, expr) -> caseName expr
+        | NewUnionCase (case, _) ->
+            Some case.Name
+        | NewTuple expressions ->
+            expressions 
+            |> List.map caseName |> List.choose id
+            |> (fun x -> System.String.Join(", ", x))
+            |> Some
+        | _ -> None
 
     /// <summary>
     /// Checks wether the given value is of the same case of a union type as the 
@@ -20,7 +39,7 @@ module Union =
     /// </example>
     /// <exception cref="System.Exception">If the expression is not an union case or does not result in an union case.</exception>
     /// <exception cref="System.Exception">If argument to check is not an union case or does not result in an union case.</exception>
-    /// <remarks>Note, not all ways an expression may result in a union case are covered in this function.</remarks>
+    /// <remarks>Note, not all ways an expression may result in an union case are covered in this function.</remarks>
     let rec isCase = function
         | Lambda (_, expr) | Let (_, _, expr) -> isCase expr
         | NewUnionCase (case, _) ->
