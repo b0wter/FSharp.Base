@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>b0wter.FSharp</AssemblyName>
     <RootNamespace>b0wter.FSharp</RootNamespace>
@@ -12,6 +12,7 @@
     <OutputPath>lib\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AsyncResult.fs" />
     <Compile Include="Base.fs" />
     <Compile Include="Lens.fs" />
     <Compile Include="Option.fs" />
