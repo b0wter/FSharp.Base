@@ -3,11 +3,11 @@ namespace b0wter.FSharp
 module AsyncResult =
 
     /// Works like `Result.bind` except that the result and the function are async.
-    let bindA aAsyncOp bAsyncResult =
+    let bindA asyncOp asyncResult =
         async {
-            let! b = bAsyncResult
+            let! b = asyncResult
             match b with
-            | Ok o -> return! aAsyncOp o
+            | Ok o -> return! asyncOp o
             | Error e -> return Error e
         }
         
