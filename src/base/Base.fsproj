@@ -12,6 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Base.fs" />
+    <Compile Include="String.fs" />
     <Compile Include="Lens.fs" />
     <Compile Include="Option.fs" />
     <Compile Include="Patterns.fs" />
