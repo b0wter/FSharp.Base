@@ -27,3 +27,8 @@ module Option =
         match o with
         | Some value -> a = value
         | None -> false
+
+    /// Transforms a result into an option.
+    let ofResult = function
+        | Ok o -> Some o
+        | Error _ -> None
