@@ -21,3 +21,21 @@ module Result =
         match result with
         | Ok o -> o |> ifValue
         | Error e -> e |> ifError
+
+    /// Binds an async operation to a Result.
+    let bindA (ifValue: 'value -> Async<Result<'newValue, 'error>>) (result: Result<'value, 'error>) : Async<Result<'newValue, 'error>> =
+        async {
+            match result with
+            | Ok o -> return! (o |> ifValue)
+            | Error e -> return (Error e )
+        }
+
+    /// Maps an async function on the Ok of a Result.
+    let mapA (ifValue: 'value -> Async<'newValue>) (result: Result<'value, 'error>) : Async<Result<'newValue, 'error>> =
+        async {
+            match result with
+            | Ok o -> 
+                let! result = (o |> ifValue)
+                return Ok result
+            | Error e -> return (Error e)
+        }
