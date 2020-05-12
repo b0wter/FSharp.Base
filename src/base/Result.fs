@@ -39,3 +39,13 @@ module Result =
                 return Ok result
             | Error e -> return (Error e)
         }
+
+    /// Turns a list of results into a result containing a list of Ok values.
+    let all (results: Result<'a, 'b> list) : Result<'a list, 'b> =
+        let rec run (accumulator: 'a list) (remaining: Result<'a, 'b> list) =
+            match remaining with
+            | [] -> Ok accumulator
+            | (Ok o) :: tail -> run (o :: accumulator) tail
+            | (Error e) :: _ -> Error e
+        run [] results |> Result.map (fun aa -> aa |> List.rev)
+        
