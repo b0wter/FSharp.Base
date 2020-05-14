@@ -49,3 +49,10 @@ module Result =
             | (Error e) :: _ -> Error e
         run [] results |> Result.map (fun aa -> aa |> List.rev)
         
+    /// <summary>
+    /// Get a value from a result using a transformation for the Ok and Error case.
+    /// </summary>
+    let get (result: Result<'a, 'b>) transformOk transformError : 'c =
+        match result with
+        | Ok r -> transformOk r
+        | Error r -> transformError
