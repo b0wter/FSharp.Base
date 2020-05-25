@@ -32,3 +32,7 @@ module Option =
     let ofResult = function
         | Ok o -> Some o
         | Error _ -> None
+
+    /// Applies an operation that returns a `Result<_,_>` and transforms Ok to Some and Error to None.
+    let bindResult (f: 'a -> Result<'b, _>) (o: 'a option) : 'b option =
+        o |> Option.map f |> Option.bind (function Ok o -> Some o | Error _ -> None)
