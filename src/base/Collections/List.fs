@@ -162,3 +162,15 @@ module List =
     /// </summary>
     let remove (item: 'a) =
         removeBy ((=) item)
+
+    /// <summary>
+    /// Transforms a list of results into a result of a list.
+    /// </summary>
+    let extractResult (items: Result<'a, 'b> list) : Result<'a list, 'b list> =
+        let rec run (aa: 'a list) (bb: 'b list) (rest: Result<'a, 'b> list) =
+            match rest with
+            | head :: tail -> match head with
+                              | Ok o    -> run (o :: aa) bb tail
+                              | Error e -> run aa (e :: bb) tail
+            | [ ] -> if bb.IsEmpty then Ok aa else Error bb
+        run [] [] items

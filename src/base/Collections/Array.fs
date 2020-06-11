@@ -109,3 +109,11 @@ module Array =
     /// </summary>
     let remove (item: 'a) =
         removeBy ((=) item)
+
+    /// <summary>
+    /// Transforms an array of results into a result of an array.
+    /// </summary>
+    let extractResult (items: Result<'a, 'b> array) : Result<'a array, 'b array> =
+        match List.extractResult (items |> List.ofArray) with
+        | Ok o -> Ok (o |> Array.ofList)
+        | Error e -> Error (e |> Array.ofList)

@@ -106,3 +106,11 @@ module Seq =
     /// </summary>
     let remove (item: 'a) (items: 'a seq) =
         runAsList (List.remove item) items
+
+    /// <summary>
+    /// Transforms a sequance of results into a result of a sequance.
+    /// </summary>
+    let extractResult (items: Result<'a, 'b> seq) : Result<'a seq, 'b seq> =
+        match List.extractResult (items |> List.ofSeq) with
+        | Ok o -> Ok (o |> Seq.ofList)
+        | Error e -> Error (e |> Seq.ofList)
