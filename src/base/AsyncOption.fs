@@ -1,5 +1,8 @@
 namespace b0wter.FSharp
 
+open System
+
+[<Obsolete("This code is obsolete. Please use the FsToolkit instead.")>]
 module AsyncOption =
 
     /// Maps a sync function on an async option.

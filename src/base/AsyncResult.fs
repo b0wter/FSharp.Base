@@ -1,5 +1,8 @@
 namespace b0wter.FSharp
 
+open System
+
+[<Obsolete("This code is obsolete. Please use the FsToolkit instead.")>]
 module AsyncResult =
 
     /// Works like `Result.bind` except that the result and the function are async.

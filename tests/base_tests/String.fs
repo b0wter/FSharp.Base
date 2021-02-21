@@ -63,3 +63,42 @@ module Join =
     [<MemberData("testCases")>]
     let ``Given a list of strings and a delimiter, returns a single string containing all elements.`` data =
         (String.join data.delimiter data.parts) |> should equal data.result
+        
+module Take =
+    
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    open b0wter.FSharp
+    
+    [<Theory>]
+    [<InlineData("abcdefg", 0, "")>]
+    [<InlineData("abcdefg", 1, "a")>]
+    [<InlineData("abcdefg", 2, "ab")>]
+    [<InlineData("", 0, "")>]
+    [<InlineData("", 1, "")>]
+    [<InlineData(null, 1, "")>]
+    let ``Given a list of strings and indices returns a modified string`` (input, argument, output) =
+        let result = input |> String.take argument
+        
+        result |> should equal output
+        
+module Skip =
+    
+    open FsUnit
+    open FsUnit.Xunit
+    open Xunit
+    open b0wter.FSharp
+    
+    [<Theory>]
+    [<InlineData("abcdefg", 0, "abcdefg")>]
+    [<InlineData("abcdefg", 1, "bcdefg")>]
+    [<InlineData("abcdefg", 2, "cdefg")>]
+    [<InlineData("", 0, "")>]
+    [<InlineData("", 1, "")>]
+    [<InlineData(null, 1, "")>]
+    let ``Given a list of strings and indices returns a modified string`` (input, argument, output) =
+        let result = input |> String.skip argument
+        
+        result |> should equal output
+        

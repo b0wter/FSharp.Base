@@ -29,6 +29,7 @@
     <Compile Include="Collections/Array.fs" />
     <Compile Include="Collections/Seq.fs" />
     <Compile Include="Validation/ValidationResult.fs" />
+    <Compile Include="IO.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Quotations.Evaluator" Version="1.1.3" />

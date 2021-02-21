@@ -78,8 +78,8 @@ module List =
         else
             xs |> List.except toRemove
            
-    ///<sumary>
-    /// Splits a list into n parts of equal length. If the number of elements is not divisable by n the lists will
+    ///<summary>
+    /// Splits a list into n parts of equal length. If the number of elements is not divisible by n the lists will
     /// be filled starting from the first list. E.g. [1; 2; 3] split into two yields: [1; 2], [ 3 ].
     /// Returns empty lists if n is larger than the length of the list of items. E.g. [1; 2] divided into three
     /// yields: [ 1 ]; [ 2 ]; [ ].
@@ -174,3 +174,33 @@ module List =
                               | Error e -> run aa (e :: bb) tail
             | [ ] -> if bb.IsEmpty then Ok aa else Error bb
         run [] [] items
+        
+    /// <summary>
+    /// Tries to get the maximum value from a list.
+    /// Returns `None` if the list is empty and `Some` value otherwise.
+    /// </summary>
+    let tryMax (items: 'a list) : 'a option =
+        if items.IsEmpty then None
+        else items |> List.max |> Some
+        
+    /// <summary>
+    /// Tries to get the maximum value from a list using the given projection.
+    /// Returns `None` if the list is empty and `Some` value otherwise.
+    /// </summary>
+    let tryMaxBy f (items: 'a list) : 'a option =
+        if items.IsEmpty then None
+        else items |> List.maxBy f |> Some
+        
+    /// <summary>
+    /// Same as `List.fold` but uses a folder that returns a `Result`.
+    /// </summary>
+    let foldResult (f: 'State -> 'T -> Result<'State, 'Error>) (initialValue: 'State) (items: 'T list) =
+        let rec step (state: 'State) (remaining: 'T list) : Result<'State, 'Error> =
+            match remaining with
+            | [] -> Ok state
+            | head :: tail ->
+                match f state head with
+                | Ok o ->
+                    step o tail
+                | Error e -> Error e
+        step initialValue items
