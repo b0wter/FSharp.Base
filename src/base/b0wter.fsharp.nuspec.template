@@ -14,11 +14,15 @@
         <dependencies>
 	      <group targetFramework=".NETStandard2.0" />
         </dependencies>
+		<contentFiles>
+            <files include="bin/Release/netstandard2.0/b0wter.CouchDb.xml" buildAction="content" flatten="true" copyToOutput="true"/>
+        </contentFiles>
     </metadata>
     <files>
         <file src="Base.fsproj" target="src"/>
         <file src="*.fs" target="src"/>
         <file src="Collections/*.fs" target="src/Collections"/>
-	<file src="lib/Release/netstandard2.0/b0wter.FSharp.dll" target="lib/netstandard2.0"/>
+        <file src="lib/Release/netstandard2.0/b0wter.FSharp.dll" target="lib/netstandard2.0"/>
+        <file src="bin/Release/netstandard2.0/b0wter.FSharp.xml" target="lib/netstandard2.0"/>
     </files>
 </package>

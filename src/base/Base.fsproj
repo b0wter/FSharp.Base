@@ -4,6 +4,7 @@
     <RootNamespace>b0wter.FSharp</RootNamespace>
     <TargetFramework>netstandard2.0</TargetFramework>
     <NuspecFile>b0wter.fsharp.nuspec</NuspecFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>lib\Debug\</OutputPath>
